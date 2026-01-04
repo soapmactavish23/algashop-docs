@@ -1,20 +1,20 @@
 openapi: 3.0.4
 
-info:
+info: 
   title: AlgaShop - Ordering
-  version: "1.0.0"
+  version: "1.0"
 
 servers:
   - description: Development
     url: "http://localhost:8080"
   - description: Production
-    url: "http://api.algashop.com"
+    url: "https://api.algashop.com"
 
 paths:
   /api/v1/customers:
     post:
       description: Register new customer
-      tags:
+      tags: 
         - Customers
       requestBody:
         required: true
@@ -33,17 +33,17 @@ paths:
             Location:
               schema:
                 type: string
-              description: Resource Address
-              example: "/api/v1/customers/d9c5d7ab-819d-41b4-a11b-04d83effe362"
+              description: Resource address
+              example: "/api/v1/customers/6e148bd5-47f6-4022-b9da-07cfaa294f7a"
         400:
           $ref: "#/components/responses/BadRequest"
-        409:
+        409: 
           $ref: "#/components/responses/Conflict"
         422:
-          $ref: "#/components/responses/UnprecessableEntity"
+          $ref: "#/components/responses/UnprocessableEntity"
         500:
           $ref: "#/components/responses/InternalError"
-    get:
+    get: 
       description: List customers
       tags:
         - Customers
@@ -71,8 +71,8 @@ paths:
             application/json:
               schema:
                 allOf:
-                  - $ref: "#/components/schemas/Page"
-                  - type: object
+                - $ref: "#/components/schemas/Page"
+                - type: object
                 properties:
                   content:
                     type: array
@@ -86,7 +86,7 @@ paths:
           name: customerId
           in: path
           required: true
-          example: 'd9c5d7ab-819d-41b4-a11b-04d83effe362'
+          example: '6e148bd5-47f6-4022-b9da-07cfaa294f7a'
       description: Get one customer by id
       tags:
         - Customers
@@ -96,62 +96,60 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Customer'
+                $ref: "#/components/schemas/Customer"
         404:
           $ref: "#/components/responses/NotFound"
-    put:
+    put: 
       parameters:
         - schema:
             type: string
           name: customerId
           in: path
           required: true
-          example: 'd9c5d7ab-819d-41b4-a11b-04d83effe362'
-      description: Edit Customer
+          example: '6e148bd5-47f6-4022-b9da-07cfaa294f7a'
+      description: Edit customer
       tags:
         - Customers
       requestBody:
+        required: true
         content:
           application/json:
             schema:
-              $ref: "#/components/schemas/CustomerInput"
+              $ref: "#/components/schemas/CustomerUpdateInput"
       responses:
         200:
           description: Ok
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Customer'
+                $ref: "#/components/schemas/Customer"
         400:
           $ref: "#/components/responses/BadRequest"
         404:
           $ref: "#/components/responses/NotFound"
-        409:
+        409: 
           $ref: "#/components/responses/Conflict"
         422:
-          $ref: "#/components/responses/UnprecessableEntity"
+          $ref: "#/components/responses/UnprocessableEntity"
         500:
           $ref: "#/components/responses/InternalError"
-    delete:
+    delete: 
       parameters:
         - schema:
             type: string
           name: customerId
           in: path
           required: true
-          example: 'd9c5d7ab-819d-41b4-a11b-04d83effe362'
-      description: Delete Customer
+          example: '6e148bd5-47f6-4022-b9da-07cfaa294f7a'
+      description: Delete customer
       tags:
         - Customers
       responses:
         204:
           description: No content
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Customer'
         404:
           $ref: "#/components/responses/NotFound"
+
   /api/v1/orders:
     post:
       tags:
@@ -168,7 +166,7 @@ paths:
               $ref: "#/components/schemas/OrderWithProductInput"
       responses:
         201:
-          description: Order Created
+          description: Order created
           content:
             application/json:
               schema:
@@ -177,16 +175,248 @@ paths:
             Location:
               schema:
                 type: string
-              description: Resource Address
-              example: "/api/v1/orders/01221ATGAJNDNA2"
+              description: Resource address
+              example: "/api/v1/orders/01226N0693HDE"
         400:
           $ref: "#/components/responses/BadRequest"
-        409:
+        409: 
           $ref: "#/components/responses/Conflict"
         422:
-          $ref: "#/components/responses/UnprecessableEntity"
+          $ref: "#/components/responses/UnprocessableEntity"
         500:
           $ref: "#/components/responses/InternalError"
+    get: 
+      description: List orders
+      tags:
+        - Orders
+      parameters:
+        - schema:
+            $ref: "#/components/schemas/OrderStatus"
+          in: query
+          name: status
+          required: false
+        - schema:
+            type: string
+            format: date
+            example: "2024-04-25"
+          in: query
+          name: placedAtFrom
+          required: false
+        - schema:
+            type: string
+            format: date
+            example: "2024-04-01"
+          in: query
+          name: placedAtTo
+          required: false
+        - schema:
+            type: number
+            example: 1211.98
+          in: query
+          name: totalAmountFrom
+          required: false
+        - schema:
+            type: number
+            example: 2341.98
+          in: query
+          name: totalAmountTo
+          required: false
+        - schema:
+            type: string
+            example: "01226N0640J7Q"
+          in: query
+          name: orderId
+          required: false
+        - schema:
+            type: string
+            example: "380d7e70-7942-4b8d-a0e9-b93d79aa6745"
+          in: query
+          name: customerId
+          required: false
+        - $ref: "#/components/parameters/page"
+        - $ref: "#/components/parameters/size"
+        - $ref: "#/components/parameters/sort"
+        - $ref: "#/components/parameters/direction"
+      responses:
+        200:
+          description: Ok
+          content:
+            application/json:
+              schema:
+                allOf:
+                - $ref: "#/components/schemas/Page"
+                - type: object
+                properties:
+                  content:
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/OrderSummary"
+  /api/v1/orders/{orderId}: 
+      get:
+        tags:
+          - Orders
+        description: Order detail
+        parameters: 
+          - schema:
+              type: string
+            required: true
+            name: orderId
+            in: path
+            example: "01226N0693HDG"
+        responses: 
+          200: 
+            description: OK
+            content: 
+              application/json:
+                schema: 
+                  $ref: "#/components/schemas/Order"
+          404:
+            $ref: "#/components/responses/NotFound"
+
+  /api/v1/shopping-carts:
+    post:
+      tags:
+        - Shopping Cart
+      description: Create shopping cart
+      requestBody: 
+        required: true
+        content:
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/ShoppingCartInput"
+      responses: 
+        201:
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ShoppingCart"
+        400:
+          $ref: "#/components/responses/BadRequest"
+        500:
+          $ref: "#/components/responses/InternalError"
+  /api/v1/shopping-carts/{shoppingCartId}:
+    get: 
+      parameters: 
+      - schema:
+          type: string
+        name: shoppingCartId
+        in: path
+        required: true
+        example: "277297bf-e586-4389-9f21-b3ce0c3f6580"
+      tags:
+        - Shopping Cart
+      description: Find shopping cart
+      responses: 
+        200: 
+          description: OK
+          content: 
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/ShoppingCart"
+        404:
+          $ref: "#/components/responses/NotFound"
+    delete:
+      parameters: 
+      - schema:
+          type: string
+        name: shoppingCartId
+        in: path
+        required: true
+        example: "277297bf-e586-4389-9f21-b3ce0c3f6580"
+      tags:
+        - Shopping Cart
+      description: Delete shopping cart
+      responses: 
+        204: 
+          description: OK
+        404:
+          $ref: "#/components/responses/NotFound"
+  /api/v1/shopping-carts/{shoppingCartId}/items:
+    post:
+      parameters: 
+      - schema:
+          type: string
+        name: shoppingCartId
+        in: path
+        required: true
+        example: "277297bf-e586-4389-9f21-b3ce0c3f6580"
+      tags:
+        - Shopping Cart
+      description: Add or update cart item
+      requestBody: 
+        required: true
+        content: 
+          application/json:
+            schema: 
+              $ref: "#/components/schemas/ShoppingCartItemInput"
+      responses: 
+        204: 
+          description: OK
+        404:
+          $ref: "#/components/responses/NotFound"
+        400:
+          $ref: "#/components/responses/BadRequest"
+        500:
+          $ref: "#/components/responses/InternalError"
+    get: 
+      parameters: 
+      - schema:
+          type: string
+        name: shoppingCartId
+        in: path
+        required: true
+        example: "277297bf-e586-4389-9f21-b3ce0c3f6580"
+      tags:
+        - Shopping Cart
+      description: List shopping cart items
+      responses:
+        200:
+          description: OK
+          content: 
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/ShoppingCartItemList"
+        404:
+          $ref: "#/components/responses/NotFound"
+    delete:
+      parameters: 
+      - schema:
+          type: string
+        name: shoppingCartId
+        in: path
+        required: true
+        example: "277297bf-e586-4389-9f21-b3ce0c3f6580"
+      tags:
+        - Shopping Cart
+      description: Empty shopping cart
+      responses: 
+        204: 
+          description: OK
+        404:
+          $ref: "#/components/responses/NotFound"
+  /api/v1/shopping-carts/{shoppingCartId}/items/{itemId}:
+    delete:
+      tags:
+        - Shopping Cart
+      description: Remove cart item
+      parameters: 
+      - schema:
+          type: string
+        name: shoppingCartId
+        in: path
+        required: true
+        example: "277297bf-e586-4389-9f21-b3ce0c3f6580"
+      - schema:
+          type: string
+        name: itemId
+        in: path
+        required: true
+        example: "28fcd9fb-4ce7-44d6-9583-14d8b3dc5aff"
+      responses: 
+        204: 
+          description: OK
+
 components:
   parameters:
     page:
@@ -195,21 +425,21 @@ components:
         example: 0
       name: page
       in: query
-      required: true
+      required: false
     size:
       schema:
         type: integer
         example: 5
       name: size
       in: query
-      required: false 
+      required: false
     sort:
       schema:
         type: string
         example: "firstName"
       name: sortByProperty
       in: query
-      required: false 
+      required: false
     direction:
       schema:
         type: string
@@ -220,31 +450,31 @@ components:
   responses:
     NotFound:
       description: Resource not found
-      content: 
+      content:
         application/problem+json:
           schema:
             $ref: "#/components/schemas/ProblemDetail"
     BadRequest:
       description: Invalid request
-      content: 
+      content:
         application/problem+json:
           schema:
             $ref: "#/components/schemas/ProblemDetail"
     Conflict:
       description: Conflict resource
-      content: 
+      content:
         application/problem+json:
           schema:
             $ref: "#/components/schemas/ProblemDetail"
-    UnprecessableEntity:
-      description: Unprecessable Entity
-      content: 
+    UnprocessableEntity:
+      description: Unprocessable entity
+      content:
         application/problem+json:
           schema:
             $ref: "#/components/schemas/ProblemDetail"
     InternalError:
       description: Internal Server Error
-      content: 
+      content:
         application/problem+json:
           schema:
             $ref: "#/components/schemas/ProblemDetail"
@@ -259,19 +489,19 @@ components:
         - document
         - phone
         - birthDate
-        - loayaltyPoints
+        - loyaltyPoints
         - registeredAt
         - archivedAt
         - promotionNotificationsAllowed
         - archived
         - address
       properties:
-        id:
+        id: 
           type: string
-          example: 'd9c5d7ab-819d-41b4-a11b-04d83effe362'
+          example: "380d7e70-7942-4b8d-a0e9-b93d79aa6745"
         firstName:
           type: string
-          example: "Jonh"
+          example: "John"
         lastName:
           type: string
           example: "Doe"
@@ -280,38 +510,40 @@ components:
           example: "johndoe@email.com"
         document:
           type: string
-          example: "123456"
+          example: "12345"
         phone:
           type: string
-          example: "11999999999"
+          example: "1191234564"
         birthDate:
           type: string
           format: date
-          example: "1999-07-23"
-        loayaltyPoints:
+          example: "1991-07-05"
+        loyaltyPoints:
           type: number
           example: 10
         registeredAt:
           type: string
-          format: date
-          example: "1999-07-23T00:00:00Z"
+          format: date-time
+          example: "2024-04-04T00:12:45Z"
         archivedAt:
           type: string
-          format: date
-          example: "1999-07-23T00:00:00Z"
+          format: date-time
+          example: "2024-04-04T00:12:45Z"
         promotionNotificationsAllowed:
           type: boolean
           example: false
         archived:
           type: boolean
           example: false
+        address:
+          $ref: "#/components/schemas/Address"
     Address:
       type: object
       required:
         - street
         - number
         - complement
-        - neighbourhood
+        - neighborhood
         - city
         - state
         - zipCode
@@ -330,7 +562,7 @@ components:
           type: string
           example: "apt 122"
           nullable: true
-        neighbourhood:
+        neighborhood:
           type: string
           example: "North Ville"
           nullable: false
@@ -342,7 +574,12 @@ components:
           x-validation: "notBlank"
         state:
           type: string
-          example: "South Carol"
+          example: "South Carolina"
+          nullable: false
+          x-validation: "notBlank"
+        zipCode:
+          type: string
+          example: "12321"
           nullable: false
           x-validation: "notBlank"
     CustomerSummary:
@@ -355,12 +592,12 @@ components:
         - phone
         - archived
       properties:
-        id:
+        id: 
           type: string
-          example: 'd9c5d7ab-819d-41b4-a11b-04d83effe362'
+          example: "380d7e70-7942-4b8d-a0e9-b93d79aa6745"
         firstName:
           type: string
-          example: "Jonh"
+          example: "John"
         lastName:
           type: string
           example: "Doe"
@@ -369,7 +606,7 @@ components:
           example: "johndoe@email.com"
         phone:
           type: string
-          example: "11999999999"
+          example: "1191234564"
         archived:
           type: boolean
           example: false
@@ -387,7 +624,7 @@ components:
       properties:
         firstName:
           type: string
-          example: "Jonh"
+          example: "John"
           nullable: false
           x-validation: "notBlank"
         lastName:
@@ -402,18 +639,18 @@ components:
           x-validation: ["email", "notBlank"]
         document:
           type: string
-          example: "123456"
+          example: "12345"
           nullable: false
           x-validation: "notBlank"
         phone:
           type: string
-          example: "11999999999"
+          example: "1191234564"
           nullable: false
           x-validation: "notBlank"
         birthDate:
           type: string
           format: date
-          example: "1999-07-23"
+          example: "1991-07-05"
           nullable: false
           x-validation: "pastDate"
         promotionNotificationsAllowed:
@@ -421,7 +658,7 @@ components:
           example: false
           nullable: false
         address:
-          $ref: '#/components/schemas/Address'
+          $ref: "#/components/schemas/Address"
     CustomerUpdateInput:
       type: object
       required:
@@ -433,7 +670,7 @@ components:
       properties:
         firstName:
           type: string
-          example: "Jonh"
+          example: "John"
           nullable: false
           x-validation: "notBlank"
         lastName:
@@ -443,7 +680,7 @@ components:
           x-validation: "notBlank"
         phone:
           type: string
-          example: "11999999999"
+          example: "1191234564"
           nullable: false
           x-validation: "notBlank"
         promotionNotificationsAllowed:
@@ -451,8 +688,7 @@ components:
           example: false
           nullable: false
         address:
-          $ref: '#/components/schemas/Address'
-          nullable: false
+          $ref: "#/components/schemas/Address"
     ProblemDetail:
       type: object
       required:
@@ -476,7 +712,7 @@ components:
           example: One or more fields are invalid
         fields:
           type: object
-          example: Fields that caused the error
+          description: Fields that caused the error
     Page:
       type: object
       required:
@@ -676,7 +912,6 @@ components:
         - lastName
         - document
         - phone
-        - email
         - address
       properties:
         firstName:
@@ -694,10 +929,6 @@ components:
         phone:
           type: string
           example: "5511912341234"
-          nullable: false
-        email:
-          type: string
-          example: "johndoe@email.com"
           nullable: false
         address: 
           $ref: "#/components/schemas/Address"
@@ -729,7 +960,6 @@ components:
         - document
         - email
         - phone
-        - archived
       properties:
         id: 
           type: string
@@ -749,6 +979,9 @@ components:
         phone:
           type: string
           example: "1191234564"
+        archived:
+          type: boolean
+          example: false
     OrderStatus:
       type: string
       example: "PLACED"
@@ -763,4 +996,130 @@ components:
       example: "GATEWAY_BALANCE"
       enum:
         - GATEWAY_BALANCE
-        - CREDTI_CARD
+        - CREDIT_CARD
+    OrderSummary:
+      required:
+        - id
+        - customer
+        - paymentMethod
+        - totalItems
+        - totalAmount
+        - placedAt
+        - canceledAt
+        - paidAt
+        - readyAt
+        - status
+      properties:
+        id:
+          type: string
+          example: "01226N0640J7Q"
+        customer:
+          $ref: "#/components/schemas/CustomerMinimal"
+        totalItems:
+          type: integer
+          example: 2
+        totalAmount:
+          type: number
+          example: 41.98
+        placedAt:
+          type: string
+          format: date-time
+          example: "2024-04-04T00:12:45Z"
+        canceledAt:
+          type: string
+          format: date-time
+          example: "2024-04-04T00:12:45Z"
+        paidAt:
+          type: string
+          format: date-time
+          example: "2024-04-04T00:12:45Z"
+        readyAt:
+          type: string
+          format: date-time
+          example: "2024-04-04T00:12:45Z"
+        status:
+          $ref: "#/components/schemas/OrderStatus"
+        paymentMethod:
+          $ref: "#/components/schemas/PaymentMethod"
+    ShoppingCart:
+      required:
+        - id
+        - totalAmount
+        - totalItems
+        - customerId
+        - items
+      properties:
+        id:
+          type: string
+          example: '277297bf-e586-4389-9f21-b3ce0c3f6580'
+        totalAmount:
+          type: number
+          example: 41.98
+        totalItems:
+          type: integer
+          example: 1
+        customerId:
+          type: string
+          example: '277297bf-e586-4389-9f21-b3ce0c3f6580'
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/ShoppingCartItem"
+    ShoppingCartItem:
+      required:
+        - id
+        - productId
+        - name
+        - price
+        - available
+        - quantity
+        - totalAmount
+      properties:
+        id:
+          type: string
+          example: '177297bf-e586-4389-9f21-a3ce0c3f6580'
+        productId:
+          type: string
+          example: '277297bf-e586-4389-9f21-b3ce0c3f6580'
+        name:
+          type: string
+          example: 'Desktop Gamer Dive'
+        price:
+          type: number
+          example: 100.00
+        available:
+          type: boolean
+          example: false
+        quantity:
+          type: integer
+          example: 2
+        totalAmount:
+          type: number
+          example: 140
+    ShoppingCartItemList:
+      type: object
+      required:
+        - items
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/ShoppingCartItem"
+    ShoppingCartItemInput:
+      required:
+        - quantity
+        - productId
+      properties:
+        quantity:
+          type: integer
+          example: 2
+        productId:
+          type: string
+          example: '6a6ca34c-e65c-496e-adaf-f872e1784003'
+    ShoppingCartInput:
+      required:
+        - customerId
+      properties:
+        customerId:
+          type: string
+          example: '6a6ca34c-e65c-496e-adaf-f872e1784003'
