@@ -237,7 +237,7 @@ paths:
           required: false
         - schema:
             type: string
-            example: Laptop
+            example: true
           in: query
           name: name
           description: Category name
