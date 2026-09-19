@@ -1,8 +1,8 @@
 asyncapi: 3.1.0
 
 info:
-  title: Algashop - Product Catalog AsyncAPI
-  version: 1.0.0
+  title: AlgaShop - Product Catalog AsyncAPI
+  version: "1.0"
 
 servers:
   development:
@@ -24,7 +24,7 @@ channels:
         replicas: 3
         topicConfiguration:
           min.insync.replicas: 2
-        bindingVersion: 0.5.0
+        bindingVersion: "0.5.0"
 
 components:
   messages:
@@ -42,12 +42,11 @@ components:
           - addedAt
         properties:
           productId:
-            type: string
-            description: The unique identifier of the product.
+            $ref: "#/components/schemas/ProductId"
           addedAt:
             type: string
             format: date-time
-            description: The timestamp when the product was added.
+            description: Date and time when a product was added.
             example: "2024-04-04T00:12:45Z"
       headers:
         type: object
@@ -57,4 +56,22 @@ components:
           __TypeId__:
             type: string
             const: "ProductCatalog.ProductAddedIntegrationEvent"
-            description: Type of the event for deserialization.
+            description: Type of the event for deserialization
+      traits:
+        - $ref: "#/components/messageTraits/KafkaProductKey"
+
+  schemas:
+    ProductId:
+      type: string
+      description: ID of product
+      example: "fcc2897f-70a8-4c87-a4d0-26a4e0bb36dc"
+
+  messageTraits:
+    KafkaProductKey:
+      bindings:
+        kafka:
+          key:
+            type: string
+            description: Product id
+            example: "fcc2897f-70a8-4c87-a4d0-26a4e0bb36dc"
+          bindingVersion: "0.5.0"
