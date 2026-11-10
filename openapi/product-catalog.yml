@@ -94,13 +94,13 @@ paths:
             application/json:
               schema:
                 allOf:
-                - $ref: "#/components/schemas/Page"
-                - type: object
-                  properties:
-                    content:
-                      type: array
-                      items:
-                        $ref: "#/components/schemas/ProductSummary"
+                  - $ref: "#/components/schemas/Page"
+                  - type: object
+                    properties:
+                      content:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/ProductSummary"
     post:
       tags:
         - Products
@@ -117,18 +117,18 @@ paths:
               schema:
                 $ref: "#/components/schemas/Product"
         "404":
-          $ref: "#/components/responses/NotFound"  
+          $ref: "#/components/responses/NotFound"
   /api/v1/products/{productId}:
     get:
       tags:
         - Products
       parameters:
-      - schema:
-          type: string
-        name: productId
-        in: path
-        required: true
-        example: "fcc2897f-70a8-4c87-a4d0-26a4e0bb36dc"
+        - schema:
+            type: string
+          name: productId
+          in: path
+          required: true
+          example: "fcc2897f-70a8-4c87-a4d0-26a4e0bb36dc"
       responses:
         "200":
           description: OK
@@ -142,12 +142,12 @@ paths:
       tags:
         - Products
       parameters:
-      - schema:
-          type: string
-        name: productId
-        in: path
-        required: true
-        example: "fcc2897f-70a8-4c87-a4d0-26a4e0bb36dc"
+        - schema:
+            type: string
+          name: productId
+          in: path
+          required: true
+          example: "fcc2897f-70a8-4c87-a4d0-26a4e0bb36dc"
       requestBody:
         content:
           application/json:
@@ -161,19 +161,19 @@ paths:
               schema:
                 $ref: "#/components/schemas/Product"
         "404":
-          $ref: "#/components/responses/NotFound"  
+          $ref: "#/components/responses/NotFound"
 
   /api/v1/products/{productId}/enable:
     put:
       tags:
         - Products
       parameters:
-      - schema:
-          type: string
-        name: productId
-        in: path
-        required: true
-        example: "fcc2897f-70a8-4c87-a4d0-26a4e0bb36dc"
+        - schema:
+            type: string
+          name: productId
+          in: path
+          required: true
+          example: "fcc2897f-70a8-4c87-a4d0-26a4e0bb36dc"
       responses:
         "204":
           description: OK
@@ -207,7 +207,7 @@ paths:
         "204":
           description: OK
         "404":
-          $ref: "#/components/responses/NotFound"  
+          $ref: "#/components/responses/NotFound"
   /api/v1/products/{productId}/withdraw:
     post:
       tags:
@@ -221,7 +221,7 @@ paths:
         "204":
           description: OK
         "404":
-          $ref: "#/components/responses/NotFound"  
+          $ref: "#/components/responses/NotFound"
 
   /api/v1/categories:
     get:
@@ -253,13 +253,13 @@ paths:
             application/json:
               schema:
                 allOf:
-                - $ref: "#/components/schemas/Page"
-                - type: object
-                  properties:
-                    content:
-                      type: array
-                      items:
-                        $ref: "#/components/schemas/Category"
+                  - $ref: "#/components/schemas/Page"
+                  - type: object
+                    properties:
+                      content:
+                        type: array
+                        items:
+                          $ref: "#/components/schemas/Category"
     post:
       tags:
         - Categories
@@ -276,18 +276,18 @@ paths:
               schema:
                 $ref: "#/components/schemas/Category"
         "404":
-          $ref: "#/components/responses/NotFound"  
+          $ref: "#/components/responses/NotFound"
   /api/v1/categories/{categoryId}:
     get:
       tags:
         - Categories
       parameters:
-      - schema:
-          type: string
-        name: categoryId
-        in: path
-        required: true
-        example: "f5ab7a1e-37da-41e1-892b-a1d38275c2f2"
+        - schema:
+            type: string
+          name: categoryId
+          in: path
+          required: true
+          example: "f5ab7a1e-37da-41e1-892b-a1d38275c2f2"
       responses:
         "200":
           description: OK
@@ -301,12 +301,12 @@ paths:
       tags:
         - Categories
       parameters:
-      - schema:
-          type: string
-        name: categoryId
-        in: path
-        required: true
-        example: "f5ab7a1e-37da-41e1-892b-a1d38275c2f2"
+        - schema:
+            type: string
+          name: categoryId
+          in: path
+          required: true
+          example: "f5ab7a1e-37da-41e1-892b-a1d38275c2f2"
       requestBody:
         content:
           application/json:
@@ -320,34 +320,34 @@ paths:
               schema:
                 $ref: "#/components/schemas/Category"
         "404":
-          $ref: "#/components/responses/NotFound"  
+          $ref: "#/components/responses/NotFound"
     delete:
       tags:
         - Categories
       parameters:
-      - schema:
-          type: string
-        name: categoryId
-        in: path
-        required: true
-        example: "f5ab7a1e-37da-41e1-892b-a1d38275c2f2"
+        - schema:
+            type: string
+          name: categoryId
+          in: path
+          required: true
+          example: "f5ab7a1e-37da-41e1-892b-a1d38275c2f2"
       responses:
         "204":
           description: OK
         "404":
-          $ref: "#/components/responses/NotFound"  
+          $ref: "#/components/responses/NotFound"
 
   /api/v1/products/{productId}/images:
     post:
       tags:
         - Products Images
       parameters:
-      - schema:
-          type: string
-        name: productId
-        in: path
-        required: true
-        example: "fcc2897f-70a8-4c87-a4d0-26a4e0bb36dc"
+        - schema:
+            type: string
+          name: productId
+          in: path
+          required: true
+          example: "fcc2897f-70a8-4c87-a4d0-26a4e0bb36dc"
       requestBody:
         content:
           application/json:
@@ -364,12 +364,12 @@ paths:
       tags:
         - Products Images
       parameters:
-      - schema:
-          type: string
-        name: productId
-        in: path
-        required: true
-        example: "fcc2897f-70a8-4c87-a4d0-26a4e0bb36dc"
+        - schema:
+            type: string
+          name: productId
+          in: path
+          required: true
+          example: "fcc2897f-70a8-4c87-a4d0-26a4e0bb36dc"
       responses:
         "200":
           description: OK
@@ -382,20 +382,20 @@ paths:
   /api/v1/products/{productId}/images/{imageId}:
     get:
       tags:
-      - Products Images
+        - Products Images
       parameters:
-      - schema:
-          type: string
-        name: productId
-        in: path
-        required: true
-        example: "fcc2897f-70a8-4c87-a4d0-26a4e0bb36dc"
-      - schema:
-          type: string
-        name: imageId
-        in: path
-        required: true
-        example: "28fcd9fb-4ce7-44d6-9583-14d8b3dc5aff"
+        - schema:
+            type: string
+          name: productId
+          in: path
+          required: true
+          example: "fcc2897f-70a8-4c87-a4d0-26a4e0bb36dc"
+        - schema:
+            type: string
+          name: imageId
+          in: path
+          required: true
+          example: "28fcd9fb-4ce7-44d6-9583-14d8b3dc5aff"
       responses:
         "200":
           description: OK
@@ -405,42 +405,42 @@ paths:
                 $ref: "#/components/schemas/Image"
     delete:
       tags:
-      - Products Images
+        - Products Images
       parameters:
-      - schema:
-          type: integer
-        name: productId
-        in: path
-        required: true
-        example: 1
-      - schema:
-          type: integer
-        name: imageId
-        in: path
-        required: true
-        example: 1
+        - schema:
+            type: integer
+          name: productId
+          in: path
+          required: true
+          example: 1
+        - schema:
+            type: integer
+          name: imageId
+          in: path
+          required: true
+          example: 1
       responses:
         "204":
           description: OK
         "404":
-          $ref: "#/components/responses/NotFound"      
+          $ref: "#/components/responses/NotFound"
   /api/v1/products/{productId}/images/{imageId}/primary:
     put:
       tags:
         - Products Images
       parameters:
-      - schema:
-          type: string
-        name: productId
-        in: path
-        required: true
-        example: "fcc2897f-70a8-4c87-a4d0-26a4e0bb36dc"
-      - schema:
-          type: string
-        name: imageId
-        in: path
-        required: true
-        example: "28fcd9fb-4ce7-44d6-9583-14d8b3dc5aff"
+        - schema:
+            type: string
+          name: productId
+          in: path
+          required: true
+          example: "fcc2897f-70a8-4c87-a4d0-26a4e0bb36dc"
+        - schema:
+            type: string
+          name: imageId
+          in: path
+          required: true
+          example: "28fcd9fb-4ce7-44d6-9583-14d8b3dc5aff"
       responses:
         "204":
           description: OK
@@ -469,19 +469,19 @@ components:
       content:
         application/problem+json:
           schema:
-              $ref: "#/components/schemas/ProblemDetail"
+            $ref: "#/components/schemas/ProblemDetail"
     BadRequest:
       description: Invalid request
       content:
         application/problem+json:
           schema:
-              $ref: "#/components/schemas/ProblemDetail"
+            $ref: "#/components/schemas/ProblemDetail"
     InternalError:
       description: Internal server error
       content:
         application/problem+json:
           schema:
-              $ref: "#/components/schemas/ProblemDetail"
+            $ref: "#/components/schemas/ProblemDetail"
   parameters:
     pageNumber:
       schema:
@@ -514,7 +514,7 @@ components:
       name: sortDirection
       description: Direction
       in: query
-  schemas: 
+  schemas:
     Product:
       type: object
       required:
@@ -758,7 +758,7 @@ components:
           example: 13422
         contentType:
           type: string
-          example: 'image/png'
+          example: "image/png"
         uploadSignedUrl:
           type: string
           example: "https://images.algashop.com/28fcd9fb-4ce7-44d6-9583-14d8b3dc5aff.png"
