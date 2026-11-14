@@ -850,7 +850,6 @@ components:
     OrderItemSnapshot:
       type: object
       required:
-        - id
         - orderItemId
         - productId
         - productName

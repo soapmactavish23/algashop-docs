@@ -82,21 +82,9 @@ paths:
       security:
         - bearerAuth: ["email-templates:read"]
       parameters:
-        - {
-            name: page,
-            in: query,
-            schema: { type: integer, minimum: 0, default: 0 },
-          }
-        - {
-            name: size,
-            in: query,
-            schema: { type: integer, minimum: 1, default: 20 },
-          }
-        - {
-            name: sort,
-            in: query,
-            schema: { type: string, example: "name,asc" },
-          }
+        - { name: page, in: query, schema: { type: integer, minimum: 0, default: 0 } }
+        - { name: size, in: query, schema: { type: integer, minimum: 1, default: 20 } }
+        - { name: sort, in: query, schema: { type: string, example: "name,asc" } }
       responses:
         "200":
           description: A page of templates
@@ -152,12 +140,7 @@ paths:
 
   /api/v1/email-templates/{id}:
     parameters:
-      - {
-          name: id,
-          in: path,
-          required: true,
-          schema: { type: string, format: uuid },
-        }
+      - { name: id, in: path, required: true, schema: { type: string, format: uuid } }
     get:
       tags: [Email templates]
       summary: Finds an email template

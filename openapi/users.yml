@@ -40,7 +40,7 @@ paths:
     delete:
       tags:
         - My User
-      description: Disables and anonymize the authenticated user.
+      description: Disables and anonymize the authenticated user. 
         Only for customer type users.
       responses:
         204:
@@ -333,4 +333,4 @@ components:
           example: true
         type:
           type: string
-          example: "MANAGER"
+          example: 'MANAGER'
